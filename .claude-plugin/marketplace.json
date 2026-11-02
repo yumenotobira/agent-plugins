@@ -1,0 +1,11 @@
+{
+  "name": "agent-plugins",
+  "owner": {
+    "name": "yumenotobira"
+  },
+  "metadata": {
+    "description": "Personal Claude Code plugins",
+    "version": "0.1.0"
+  },
+  "plugins": []
+}
