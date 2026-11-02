@@ -27,3 +27,18 @@ plugins/<plugin-name>/
    { "name": "<plugin-name>", "source": "./plugins/<plugin-name>", "description": "..." }
    ```
 3. `claude plugin validate .` で検証
+
+## バージョン管理
+
+`plugins/` 配下を変更した PR が main にマージされると、GitHub Actions（`.github/workflows/bump-versions.yml`）が変更のあったプラグインの `plugin.json` の `version` を上げて main に push する。
+
+- デフォルトは patch。PR に `release:minor` / `release:major` ラベルを付けるとそのレベルで上げる
+- `version` 未設定のプラグインは `0.1.0` が設定される
+
+手元で実行する場合:
+
+```sh
+scripts/bump_versions.py --dry-run                 # origin/main...HEAD の変更を確認
+scripts/bump_versions.py --level minor             # 変更のあったプラグインを minor bump
+scripts/bump_versions.py --plugin foo --level major  # 指定プラグインを bump
+```
