@@ -12,6 +12,11 @@
       "name": "git",
       "source": "./plugins/git",
       "description": "Git / GitHub を使った開発フローのためのスキル集"
+    },
+    {
+      "name": "principles",
+      "source": "./plugins/principles",
+      "description": "開発の原則をセッションに読み込み、作業から得た気づきを issue にして原則を自己進化させる"
     }
   ]
 }
