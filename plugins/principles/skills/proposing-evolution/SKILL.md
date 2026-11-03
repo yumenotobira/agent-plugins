@@ -17,7 +17,13 @@ description: 開発の原則(principles プラグイン)に反映すべきこと
 
 ## 手順
 
-1. **重複を確認する**: `gh issue list -R yumenotobira/agent-plugins --label self-evolution --state all --search "<キーワード>"` で、同じ提案がないか探す。あれば新規作成せず、ユーザーに伝える。
+1. **重複を確認する**: 同じ提案がないか探す。あれば新規作成せず、ユーザーに伝える。
+
+   ```sh
+   gh issue list -R yumenotobira/agent-plugins --label self-evolution --state all --search "<キーワード>"
+   # クラウドセッションなど gh issue が使えない環境(下の注を参照)
+   gh api "search/issues?q=repo:yumenotobira/agent-plugins+label:self-evolution+<キーワード>"
+   ```
 2. **現在の原則を確認する**: セッション開始時に読み込まれた原則と照らし、どの原則をどう変えるのかを具体的にする。
 3. **下書きする**: 本文は下の「本文の構成」に従って日本語で書く。タイトルは変更内容が分かる日本語にする。
 4. **ユーザーに確認する**: ユーザーが明示的に起票を依頼していない限り、下書きを見せて確認を取る。起票すると自動で原則が書き換わるため。
@@ -28,6 +34,13 @@ description: 開発の原則(principles プラグイン)に反映すべきこと
      --label self-evolution \
      --title "<タイトル>" \
      --body-file <file>
+   ```
+
+   クラウドセッション(claude.ai/code やスケジュール済みタスク)では、GitHub への通信がプロキシを通り GraphQL が拒否されるため `gh issue` が使えない。その場合は REST で起票する。
+
+   ```sh
+   gh api repos/yumenotobira/agent-plugins/issues \
+     -f title="<タイトル>" -F body=@<file> -f 'labels[]=self-evolution'
    ```
 
    作成後は URL を報告する。
