@@ -45,6 +45,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      issues: write
     env:
       GH_TOKEN: ${{ github.token }}
       PR: ${{ github.event.pull_request.number }}
@@ -79,3 +80,21 @@ jobs:
 
       - name: Merge
         run: gh pr merge "$PR" --squash --delete-branch --match-head-commit "$HEAD_SHA"
+
+      # A merge made with GITHUB_TOKEN does not auto-close issues linked by
+      # "Closes #n", so close them explicitly.
+      - name: Close linked issues
+        run: |
+          gh api graphql \
+            -f query='query($owner: String!, $repo: String!, $pr: Int!) {
+              repository(owner: $owner, name: $repo) {
+                pullRequest(number: $pr) {
+                  closingIssuesReferences(first: 20) { nodes { number state } }
+                }
+              }
+            }' \
+            -F owner="${GITHUB_REPOSITORY%/*}" -F repo="${GITHUB_REPOSITORY#*/}" -F pr="$PR" \
+            --jq '.data.repository.pullRequest.closingIssuesReferences.nodes[] | select(.state == "OPEN") | .number' |
+          while read -r n; do
+            gh issue close "$n" --reason completed --comment "#$PR で対応し、マージしました。"
+          done
