@@ -22,6 +22,12 @@ gh api $R/issues/<n>/comments -F body=@<file>   # コメント
 
 ## 手順
 
+0. **最新の main からブランチを作る**: セッションに clone されたリポジトリは古い場合がある。読む前・変える前に必ず取得し直す。古い main から作ると、version が他の変更と重なって CI で止まる。
+
+   ```sh
+   git fetch origin main
+   git switch -c claude/self-evolution-<issue 番号> origin/main
+   ```
 1. **判断する**: `plugins/principles/PRINCIPLES.md` を読み、issue の提案を原則 3(基準そのものの見直し)に照らして検討する。
    - 原則は最小限に保つ。追加するだけでなく、既存の原則との統合・置き換え・削除を優先して検討する。
    - 反映しないと判断したら、理由を issue にコメントして終了する。PR は作らない。
@@ -34,7 +40,7 @@ gh api $R/issues/<n>/comments -F body=@<file>   # コメント
    ```sh
    python3 scripts/bump_versions.py --plugin principles --level <patch|minor>
    ```
-4. **コミットして push する**: ブランチ名は `claude/self-evolution-<issue 番号>`。main には直接 push しない。
+4. **コミットして push する**: 手順 0 で作ったブランチに push する。main には直接 push しない。
 5. **PR を作る**: 本文は `plugins/git/skills/writing-pr/SKILL.md` とその `references/template.md` に従い、タイトルは日本語にする。本文に `Closes #<issue 番号>` を含める。
 
    ```sh
