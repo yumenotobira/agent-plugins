@@ -19,7 +19,10 @@ concurrency:
 
 jobs:
   bump:
-    if: github.event.pull_request.merged == true
+    # self-evolution PRs bump their own version (see self-evolution.yml).
+    if: >-
+      github.event.pull_request.merged == true &&
+      !contains(github.event.pull_request.labels.*.name, 'self-evolution')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
