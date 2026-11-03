@@ -7,5 +7,11 @@
     "description": "Personal Claude Code plugins",
     "version": "0.1.0"
   },
-  "plugins": []
+  "plugins": [
+    {
+      "name": "git",
+      "source": "./plugins/git",
+      "description": "Git / GitHub を使った開発フローのためのスキル集"
+    }
+  ]
 }

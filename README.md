@@ -9,6 +9,16 @@
 /plugin install <plugin-name>@agent-plugins
 ```
 
+## プラグイン一覧
+
+| 名前 | 内容 |
+|---|---|
+| [git](plugins/git) | Git / GitHub を使った開発フローのスキル集（issue の書き方など） |
+
+```
+/plugin install git --marketplace yumenotobira/agent-plugins
+```
+
 ## 構成
 
 ```
