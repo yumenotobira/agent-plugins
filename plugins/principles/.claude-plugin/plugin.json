@@ -1,8 +1,0 @@
-{
-  "name": "principles",
-  "description": "開発の原則をセッションに読み込み、作業から得た気づきを issue にして原則を自己進化させる",
-  "author": {
-    "name": "yumenotobira"
-  },
-  "version": "0.1.2"
-}
