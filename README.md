@@ -14,6 +14,7 @@
 | 名前 | 内容 |
 |---|---|
 | [git](plugins/git) | Git / GitHub を使った開発フローのスキル集（issue・PR の書き方など） |
+| [principles](plugins/principles) | タスク遂行のための考え方の原則を SessionStart フックでセッションに読み込む |
 
 ```
 /plugin install git --marketplace yumenotobira/agent-plugins
